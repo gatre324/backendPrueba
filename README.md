@@ -33,3 +33,13 @@ pytest
 ```
 
 La arquitectura es modular, basada en repositories y use cases; no usar MVC clásico ni acceder a la base desde los clientes.
+
+## Despliegue en Railway
+
+1. Crea un servicio desde este proyecto y configura `SI2-backend` como **Root Directory**.
+2. En Railway, abre **Variables** y pega el contenido de `.env.production`.
+3. Reemplaza `DATABASE_POOL_URL` con la URL de Supabase. Codifica los caracteres reservados de la contraseña (`&` como `%26`, por ejemplo).
+4. Reemplaza `<FRONTEND_DOMAIN>` por el dominio público del frontend Angular. Si todavía no existe, puedes dejar temporalmente `http://localhost:4200`.
+5. Haz el deploy. `railway.toml` configura Railpack, ejecuta `alembic upgrade head` como pre-deploy y arranca Uvicorn en el puerto asignado por Railway.
+
+La URL pública quedará disponible en `https://<RAILWAY_PUBLIC_DOMAIN>`. Usa esa URL como base de la API en las variables de producción de Angular y Flutter, añadiendo `/api/v1`.
